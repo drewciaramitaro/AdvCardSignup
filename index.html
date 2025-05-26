@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>AdvantEdge Sign-Up Forms</title>
+    
+    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=YMtcz">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <fieldset>
+            <legend>Enter a list of AdvantEdge card numbers</legend>
+            <p><em>One card # per line</em></p>
+            <textarea></textarea>
+            <button onclick="generate()">Generate</button>
+        </fieldset>
+    </header>
+
+    <div id="forms">
+        
+    </div>
+
+    <template id="form-template">
+        <div id="form-template">
+            <div>
+                <div style="
+                    display: grid;
+                    grid-template-columns: 1fr 20%;
+                    align-items: center;">
+                    <h2 class="tk-trade-gothic-next-condensed" style="margin-bottom: 2px;"><span class="adv-text">AdvantEdge</span> Card Sign-Up</h2>
+                    <div class="field" style="float: right;">
+                        <span>Cashier</span>
+                        <div class="form-field" style="width:1in"></div>
+                    </div>
+                
+                </div>
+                
+                <div class="form-head">
+                    <div class="form-info">
+                        <p>This card is already activated and will be used towards your current order.</p>
+                        <p>Fill out this form and return it to your cashier or Guest Services to complete the sign-up.</p>  
+                        <p>Within 24 hours, the information you provide below will be tied to this card.</p>
+                    </div>
+                    <div class="form-card-info">
+                        <svg class="barcode" jsbarcode-format="upc"
+                            jsbarcode-height="30"
+                            jsbarcode-width="1"
+                        >
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="form">
+                <div class="field">
+                    <span>Name</span> <div class="form-field" style="width: 4in;"></div>
+                </div>
+                
+                <div class="field">
+                    <span>Preferred Phone #*</span>
+                    <div class="form-field" style="white-space:break-spaces;">(            ) -            -            </div>
+                </div>
+                <div class="field">
+                    <span>Address</span>
+                    <div class="form-field" style="width:2.5in"></div>
+                </div>
+                <div class="field">
+                    <span>City</span>
+                    <div class="form-field" style="width:1in"></div>
+                </div>
+                <div class="field">
+                    <span>State</span>
+                    <div class="form-field" style="width:1in"></div>
+                </div>
+                <div class="field">
+                    <span>Zip</span>
+                    <div class="form-field" style="width:1in"></div>
+                </div>
+            </div>
+            <div style="margin-top: 4px;font-style: italic;">
+                * This Phone Number can be used to look up your AdvantEdge rewards account at checkout. You will not recieve marketing / promotional calls or texts unless you opt-in to it. You can opt-in to marketing / promotional messages by checking this box:
+                <div style="border: 1px solid black;width:15px;height:15px;display: inline-block;"></div>
+            </div>
+        </div>
+    </template>
+
+  
+    
+</body>
+  <script>
+        
+        const template = document.querySelector('#form-template');
+        const formList = document.querySelector('#forms')
+        function generate(){
+            let lines = document.querySelector('textarea').value.split('\n');
+
+            lines.forEach(element => {
+                const newForm = template.content.cloneNode(true);
+                newForm.querySelector('svg').setAttribute(
+                    'jsbarcode-value', '4'+element
+                )
+                formList.appendChild(newForm)
+            });
+        JsBarcode(".barcode").init();
+        }
+            
+    </script>
+</html>

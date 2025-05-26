@@ -1,0 +1,62 @@
+@font-face {
+    font-family: 'Clarendon';
+    src: url('Clarendon.ttf');
+}
+
+*{
+    font-family: 'trade-gothic-next';
+}
+
+@media print {
+    header{
+        display: none;
+    }
+}
+
+textarea{
+    resize: vertical;
+    height: 200px;
+    font-family: monospace;
+}
+
+.adv-text{
+    font-family: Clarendon;
+    font-weight: 100;
+}
+
+
+#form-template{
+    border: 2px solid black;
+    border-radius: .4rem;
+    padding: .2in;
+    padding-top: .1in;
+    margin-bottom: 5px;
+}
+
+div.form{
+    border-top: 2px solid black;
+    margin-top: 1px;
+    padding-top: .2in;
+    display: flex;
+    gap: 20px;
+    font-size: .2in;
+    flex-wrap: wrap;
+}
+
+div.form-field{
+    border-bottom: 1px solid black;
+    margin-left: 8px;
+}
+
+div.field{
+    display: flex;
+}
+
+.form-head{
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.form-card-info{
+    text-align: center;
+}
