@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>AdvantEdge Sign-Up Forms</title>
     
-    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=FgrtC">
+    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=PEYHG">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
 
@@ -51,6 +51,7 @@
                             jsbarcode-width="1"
                         >
                         </svg>
+                        <span id="card-no"></span>
                     </div>
                 </div>
             </div>
@@ -107,6 +108,7 @@
                 newForm.querySelector('svg').setAttribute(
                     'jsbarcode-value', code
                 )
+                newForm.querySelector('#card-no').innerHTML = code.substring(1, 11);
                 formList.appendChild(newForm)
             });
         JsBarcode(".barcode").init();
