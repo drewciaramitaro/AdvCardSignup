@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>AdvantEdge Sign-Up Forms</title>
     
-    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=YMtcz">
+    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=FgrtC">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
 
@@ -99,8 +99,13 @@
 
             lines.forEach(element => {
                 const newForm = template.content.cloneNode(true);
+                let code = element;
+                if (code.length == 10)
+                    code = '4'+code
+                if (code.length == 12)
+                    code = code.substring(0, 11)
                 newForm.querySelector('svg').setAttribute(
-                    'jsbarcode-value', '4'+element
+                    'jsbarcode-value', code
                 )
                 formList.appendChild(newForm)
             });
