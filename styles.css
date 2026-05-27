@@ -11,6 +11,12 @@
     header{
         display: none;
     }
+
+}
+@page{
+    size: landscape;
+    margin:0;
+    margin-top:.4in
 }
 
 textarea{
@@ -31,14 +37,15 @@ textarea{
     padding: .2in;
     padding-top: .1in;
     margin-bottom: 5px;
+    break-inside: avoid;
 }
 
 div.form{
     border-top: 2px solid black;
     margin-top: 1px;
-    padding-top: .2in;
+    padding-top: .1in;
     display: flex;
-    gap: 20px;
+    gap: 10px 20px;
     font-size: .2in;
     flex-wrap: wrap;
 }
@@ -65,4 +72,10 @@ div.field{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap:4px
+}
+.form-info span{
+    display: block;
+}
+#card-no{
+    margin-left: 10%;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>AdvantEdge Sign-Up Forms</title>
     
-    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=ykaY7">
+    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=t9q3N">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
 
@@ -32,21 +32,22 @@
             <div>
                 <div style="
                     display: grid;
-                    grid-template-columns: 1fr 20%;
+                    grid-template-columns: 1fr 40%;
                     align-items: center;">
-                    <h2 class="tk-trade-gothic-next-condensed" style="margin-bottom: 2px;"><span class="adv-text">AdvantEdge</span> Card Sign-Up</h2>
+                    <h2 class="tk-trade-gothic-next-condensed" style="margin-bottom: 2px;    margin-top: 0;"><span class="adv-text">AdvantEdge</span> Card Sign-Up</h2>
                     <div class="field" style="float: right;">
                         <span>Cashier</span>
                         <div class="form-field" style="width:1in"></div>
+                        <span id="card-no"></span>
                     </div>
                 
                 </div>
                 
                 <div class="form-head">
                     <div class="form-info">
-                        <p>This card is already activated and will be used towards your current order.</p>
-                        <p>Fill out this form and return it to your cashier or Guest Services to complete the sign-up.</p>  
-                        <p>Within 24 hours, the information you provide below will be tied to this card.</p>
+                        <span>This card is already activated and will be used towards your current order.</span>
+                        <span>Fill out this form and return it to your cashier or Guest Services to complete the sign-up.</span>  
+                        <span>Within 24 hours, the information you provide below will be tied to this card.</span>
                     </div>
                     <div class="form-card-info">
                         <svg class="barcode" jsbarcode-format="upc"
@@ -54,7 +55,6 @@
                             jsbarcode-width="1"
                         >
                         </svg>
-                        <span id="card-no"></span>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                 newForm.querySelector('svg').setAttribute(
                     'jsbarcode-value', code
                 )
-                newForm.querySelector('#card-no').innerHTML = code.substring(1, 11);
+                newForm.querySelector('#card-no').innerHTML = `Card # ${code.substring(1, 11)}`;
                 formList.appendChild(newForm)
             });
         JsBarcode(".barcode").init();
