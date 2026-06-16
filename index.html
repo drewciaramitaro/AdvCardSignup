@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>AdvantEdge Sign-Up Forms</title>
     
-    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=t9q3N">
+    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=ZS4yJ">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
 
@@ -13,13 +13,37 @@
 
     <header>
         <fieldset>
-            <legend>Enter a list of AdvantEdge card numbers</legend>
-            <p><em>One card # per line</em></p>
-            <textarea></textarea>
-            <button onclick="generate()">Generate</button>
-            <button onclick="window.print()">Click here to print</button> <span>(Print in landscape)</span>
-                        
-            <a href="signupqr.html" style="text-align: right;float: right;">Click here to see print-outs of QR codes for the mobile app</a>
+            <h1 class="tk-trade-gothic-next-condensed" style="text-align: center;"><span class="adv-text">AdvantEdge</span> Card Sign-Up Form Generator</h1>
+            <div style="display: flex;flex-direction: row;align-items: center;gap: 20px;justify-content: center;">
+
+                <div>
+                    <div style="margin: auto;width: fit-content;">
+                    <p style="margin: 0;text-align:center">AdvantEdge Card Numbers</p>
+                    <textarea 
+                    placeholder="Click here, then scan cards using the SmartCheck ID scanner.
+                    
+Or, just type them in.
+
+One card # per line."></textarea>
+                    </div>
+                    <div style="margin: auto;width: fit-content;display:flex;flex-direction: column;align-items: center;gap: 10px;margin-top: 20px;">
+                        <button id="generate-btn" onclick="generate()">Generate</button>
+                        <button id="print-btn" onclick="window.print()">Click here to print</button> <span>(Print in landscape)</span>
+                    </div>
+                </div>
+                <div style="max-width: 400px;">
+                    <h3 style="text-align: center;">Instructions</h3>
+                    <ol>
+                        <li>Get a stack of AdvantEdge cards and pre-activate them all in Loyalty as Instant Issue.</li>
+                        <li>Scan or type card numbers into the box on the left. Make sure each card number is on its own line.</li>
+                        <li>Click the "Generate" button to create a sign-up form for each card number.</li>
+                        <li>Click the "Print" button to print the forms. For best results, print in landscape.</li>
+                        <li>Cut out the printed forms then tape them to the actual cards.</li>
+                        <li>Give the forms to cashiers to sign them up at the register.</li>
+                        <li>Once a customer fills it out, collect it and enter the guest's information into Loyalty by end of day.</li>
+                    </ol>
+                </div>
+            </div>
         </fieldset>
     </header>
 
@@ -95,6 +119,18 @@
     
 </body>
   <script>
+        document.querySelector('textarea').addEventListener('input', function() {
+            const lines = this.value.split('\n');
+            const lastLine = lines[lines.length - 1];
+            
+            // If the last line is exactly 12 digits, automatically add a newline
+            if (/^\d{12}$/.test(lastLine)) {
+                if (!this.value.endsWith('\n')) {
+                    this.value += '\n';
+                    this.selectionStart = this.selectionEnd = this.value.length;
+                }
+            }
+        });
         
         const template = document.querySelector('#form-template');
         const formList = document.querySelector('#forms')
@@ -104,6 +140,12 @@
             lines.forEach(element => {
                 const newForm = template.content.cloneNode(true);
                 let code = element;
+                if(code.length == 0)
+                    return;
+                if (code.length < 10 || code.length > 12){
+                    alert('Invalid card number: ' + code + '\nCard numbers must be 10 or 12 digits long.\nSkipping this card number.');
+                    return;
+                }
                 if (code.length == 10)
                     code = '4'+code
                 if (code.length == 12)
