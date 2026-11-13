@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>AdvantEdge Sign-Up Forms</title>
     
-    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=ZS4yJ">
+    <link rel="stylesheet" href="https://use.typekit.net/ryp8bab.css?ch=JZ7XX">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/barcodes/JsBarcode.ean-upc.min.js"></script>
 
@@ -14,8 +14,19 @@
     <header>
         <fieldset>
             <h1 class="tk-trade-gothic-next-condensed" style="text-align: center;"><span class="adv-text">AdvantEdge</span> Card Sign-Up Form Generator</h1>
-            <div style="display: flex;flex-direction: row;align-items: center;gap: 20px;justify-content: center;">
-
+            <div style="display: flex;flex-direction: row;align-items: top;gap: 20px;justify-content: center;">
+                <div style="max-width: 400px;" id="inst-issue-instructions">
+                    <h3 style="text-align: center;">iSave Barcode Instructions</h3>
+                    <ol>
+                        <li>Look up guest's AdvantEdge card in Loyalty by phone number.</li>
+                        <li>Copy the card number (control-c)</li>
+                        <li>Paste the card number into the box in the middle.</li>
+                        <li>Click the "Generate" button to create a sign-up form for each card number.</li>
+                        <li>Click the "Print" button to print the sheet.</li>
+                        <li>Give the printed sheet to the guest and have them scan it at the iSave Kiosk.</li>
+                    </ol>
+                    <button id="generate-btn" onclick="generate('#isave-template')">Generate iSave Barcode</button>
+                </div>
                 <div>
                     <div style="margin: auto;width: fit-content;">
                     <p style="margin: 0;text-align:center">AdvantEdge Card Numbers</p>
@@ -26,13 +37,10 @@ Or, just type them in.
 
 One card # per line."></textarea>
                     </div>
-                    <div style="margin: auto;width: fit-content;display:flex;flex-direction: column;align-items: center;gap: 10px;margin-top: 20px;">
-                        <button id="generate-btn" onclick="generate()">Generate</button>
-                        <button id="print-btn" onclick="window.print()">Click here to print</button> <span>(Print in landscape)</span>
-                    </div>
+  
                 </div>
-                <div style="max-width: 400px;">
-                    <h3 style="text-align: center;">Instructions</h3>
+                <div style="max-width: 400px;" id="inst-issue-instructions">
+                    <h3 style="text-align: center;">Instant-Issue Instructions</h3>
                     <ol>
                         <li>Get a stack of AdvantEdge cards and pre-activate them all in Loyalty as Instant Issue.</li>
                         <li>Scan or type card numbers into the box on the left. Make sure each card number is on its own line.</li>
@@ -42,7 +50,13 @@ One card # per line."></textarea>
                         <li>Give the forms to cashiers to sign them up at the register.</li>
                         <li>Once a customer fills it out, collect it and enter the guest's information into Loyalty by end of day.</li>
                     </ol>
+                    <button id="generate-btn" onclick="generate()">Generate Instant Issue Forms</button>
                 </div>
+                
+            </div>
+            <div style="margin: auto;width: fit-content;display:flex;flex-direction: column;align-items: center;gap: 10px;margin-top: 20px;">
+                
+                <button id="print-btn" onclick="window.print()">Click here to print</button> <span>(Print in landscape)</span>
             </div>
         </fieldset>
     </header>
@@ -50,6 +64,22 @@ One card # per line."></textarea>
     <div id="forms">
         
     </div>
+
+    <template id="isave-template">
+        <div id="isave-template">
+
+            <div>
+                <div style="display:flex;flex-direction: column;align-items: center;">
+                    <svg class="barcode" jsbarcode-format="upc"
+                        jsbarcode-height="30"
+                        jsbarcode-width="1"
+                    >
+                    </svg>
+                 <span id="card-no" style="margin:auto"></span>
+                </div>  
+            </div>
+        </div>
+        </template> 
 
     <template id="form-template">
         <div id="form-template">
@@ -132,11 +162,10 @@ One card # per line."></textarea>
             }
         });
         
-        const template = document.querySelector('#form-template');
         const formList = document.querySelector('#forms')
-        function generate(){
+        function generate(form = '#form-template'){
             let lines = document.querySelector('textarea').value.split('\n');
-
+            let template = document.querySelector(form);
             lines.forEach(element => {
                 const newForm = template.content.cloneNode(true);
                 let code = element;
